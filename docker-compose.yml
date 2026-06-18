@@ -1,0 +1,22 @@
+services:
+  db:
+   image: mongo
+   restart: unless-stopped
+   ports:
+      - 27017:27017
+   environment:
+       MONGO_INITDB_ROOT_USERNAME: color
+       MONGO_INITDB_ROOT_PASSWORD: password
+   volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    links:
+      - db
+
+volumes:
+  mongo-data:
