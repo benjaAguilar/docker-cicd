@@ -1,5 +1,11 @@
 import express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const DB_USERNAME = process.env.MONGO_INITDB_ROOT_USERNAME;
+const DB_PWD = process.env.MONGO_INITDB_ROOT_PASSWORD;
 
 const Mate = mongoose.model(
   "Mate",
@@ -9,7 +15,7 @@ const Mate = mongoose.model(
   }),
 );
 
-const DB_URL = "mongodb://color:password@db:27017/backend?authSource=admin";
+const DB_URL = `mongodb://${DB_USERNAME}:${DB_PWD}@db:27017/backend?authSource=admin`;
 mongoose.connect(DB_URL);
 
 const app = express();
