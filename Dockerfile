@@ -1,7 +1,12 @@
 FROM node:22
 
-RUN mkdir -p /home/app
-COPY . /home/app
+RUN npm install -g corepack@latest
+RUN corepack enable pnpm
+
+WORKDIR /home/app
+COPY . .
+
+RUN pnpm install
 
 EXPOSE 3000
-CMD ["node", "/home/app/index.js"]
+CMD ["node", "index.js"]
