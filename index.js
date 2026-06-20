@@ -22,7 +22,6 @@ const app = express();
 
 app.get("/", async (_req, res) => {
   console.log(`GET request of "/"`);
-  console.log("Hello im hot reload on docker");
   const mates = await Mate.find();
 
   res.json({
