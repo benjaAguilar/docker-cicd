@@ -36,3 +36,33 @@ It works, but it can be better for production environments.
 By now we are copying everything from the root folder to our container adding unnecessary stuff like `.git` folder for example. Our what could happen if a developer clones the repo, does not install the dependencies meaning that does not have node_modules folder with stuff that needs the app to work and runs the container? Of course its gonna crash.
 
 Instead of copying everything we can make use of `.dockerignore` to reduce the container size and bloat and also install the dependencies needed with `npm`.
+`.dockerignore`
+```
+# ignore node_modules, we gonna install it
+node_modules
+
+#ignore git files
+.git
+.gitignore
+
+# docker files not needed
+Dockerfile*
+.dockerignore
+
+```
+`Dockerfile`
+```
+
+FROM node:22
+
+RUN npm install -g corepack@latest
+RUN corepack enable pnpm
+
+WORKDIR /home/app
+COPY . .
+
+RUN pnpm install
+
+EXPOSE 3000
+CMD ["node", "index.js"]
+```
