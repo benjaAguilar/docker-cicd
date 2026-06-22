@@ -50,5 +50,5 @@ jobs:
       uses: docker/build-push-action@v7
       with:
           push: true
-          tags: ghcr.io/benjaAguilar/docker-cicd:latest
+          tags: ghcr.io/benjaaguilar/docker-cicd:latest
 
