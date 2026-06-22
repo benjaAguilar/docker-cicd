@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { Req, Res } from "./types/express.js";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ mongoose.connect(DB_URL);
 
 const app = express();
 
-app.get("/", async (_req, res) => {
+app.get("/", async (_req: Req, res: Res) => {
   console.log(`GET request of "/"`);
   const mates = await Mate.find();
 
@@ -31,7 +32,7 @@ app.get("/", async (_req, res) => {
   });
 });
 
-app.get("/add", async (_req, res) => {
+app.get("/add", async (_req: Req, res: Res) => {
   console.log(`GET request of "/add"`);
   await Mate.create({ name: "porongo", price: 10 });
 
