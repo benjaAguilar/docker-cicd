@@ -5,8 +5,8 @@ import { Req, Res } from "./types/express.js";
 
 dotenv.config();
 
-const DB_USERNAME = process.env.MONGO_INITDB_ROOT_USERNAME;
-const DB_PWD = process.env.MONGO_INITDB_ROOT_PASSWORD;
+const DB_USERNAME = process.env.MONGO_INITDB_ROOT_USERNAME ?? "";
+const DB_PWD = process.env.MONGO_INITDB_ROOT_PASSWORD ?? "";
 
 const Mate = mongoose.model(
   "Mate",
@@ -17,7 +17,7 @@ const Mate = mongoose.model(
 );
 
 const DB_URL = `mongodb://${DB_USERNAME}:${DB_PWD}@db:27017/backend?authSource=admin`;
-mongoose.connect(DB_URL);
+void mongoose.connect(DB_URL);
 
 const app = express();
 
@@ -42,4 +42,6 @@ app.get("/add", async (_req: Req, res: Res) => {
   });
 });
 
-app.listen(3000, () => console.log("Server running on port 3000"));
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
